@@ -5,9 +5,27 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\BookRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
-#[ApiResource]
+//#[ApiResource]
+//#[ApiResource(
+//    collectionOperations: [
+//        "get"
+//        , "post"
+//    ]
+//    , itemOperations: [
+//        "get"
+//    ]
+//)]
+#[ApiResource(
+    denormalizationContext: [
+        "groups" => [ "book:write" ]
+    ]
+    , normalizationContext: [
+        "groups" => [ "book:read" ]
+    ]
+)]
 class Book
 {
     #[ORM\Id]
@@ -15,24 +33,31 @@ class Book
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[Groups(["book:read", "book:write"])]
     #[ORM\Column(type: 'string', length: 255)]
     private $title;
 
+    #[Groups(["book:read", "book:write"])]
     #[ORM\Column(type: 'text')]
     private $summary;
 
+    #[Groups(["book:read", "book:write"])]
     #[ORM\Column(type: 'string', length: 255)]
     private $author;
 
+    #[Groups(["book:read", "book:write"])]
     #[ORM\Column(type: 'string', length: 255)]
     private $isbn;
 
+    #[Groups(["book:read", "book:write"])]
     #[ORM\Column(type: 'datetime')]
     private $publicationDate;
 
+    #[Groups(["book:read"])]
     #[ORM\Column(type: 'datetime')]
     private $createdAt;
 
+    #[Groups(["book:read"])]
     #[ORM\Column(type: 'datetime')]
     private $updatedAt;
 
