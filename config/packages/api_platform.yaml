@@ -1,7 +1,7 @@
 api_platform:
-    title: 'Testing API Platform REST API'
-    description: 'a simple test'
-    version: '0.0.1'
+    title: 'Catalog API'
+    description: 'The shoes and T-shirts YOU''RE looking for'
+    version: '0.0.2'
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
     patch_formats:
