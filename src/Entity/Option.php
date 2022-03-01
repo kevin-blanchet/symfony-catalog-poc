@@ -28,6 +28,9 @@ class Option
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'options')]
     private $products;
 
+    #[ORM\Column(type: 'integer')]
+    private $asort;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -85,6 +88,18 @@ class Option
         if ($this->products->removeElement($product)) {
             $product->removeOption($this);
         }
+
+        return $this;
+    }
+
+    public function getAsort(): ?int
+    {
+        return $this->asort;
+    }
+
+    public function setAsort(int $asort): self
+    {
+        $this->asort = $asort;
 
         return $this;
     }
