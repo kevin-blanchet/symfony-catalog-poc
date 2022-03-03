@@ -30,6 +30,7 @@ security:
                 login_path: app_login
                 check_path: app_login
                 enable_csrf: true
+                default_target_path: app_product_index
             logout:
                 path: app_logout
                 target: app_login
@@ -39,6 +40,10 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+    role_hierarchy:
+        ROLE_PRODUCT_ADMIN: ROLE_USER
+        ROLE_ADMIN:         ROLE_PRODUCT_ADMIN
+        ROLE_SUPER_ADMIN:   [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
 when@test:
     security:
