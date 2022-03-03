@@ -24,6 +24,8 @@ class ProductController extends AbstractController
     #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ProductRepository $productRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_PRODUCT_ADMIN');
+
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
@@ -50,6 +52,8 @@ class ProductController extends AbstractController
     #[Route('/{id}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Product $product, ProductRepository $productRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_PRODUCT_ADMIN');
+
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
@@ -67,6 +71,8 @@ class ProductController extends AbstractController
     #[Route('/{id}', name: 'app_product_delete', methods: ['POST'])]
     public function delete(Request $request, Product $product, ProductRepository $productRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_PRODUCT_ADMIN');
+
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
             $productRepository->remove($product);
         }
