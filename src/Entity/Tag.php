@@ -28,6 +28,11 @@ class Tag
         $this->products = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->tagName;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

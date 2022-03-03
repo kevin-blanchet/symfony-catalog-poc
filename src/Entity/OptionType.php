@@ -28,6 +28,11 @@ class OptionType
         $this->options = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->optionTypeName;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
