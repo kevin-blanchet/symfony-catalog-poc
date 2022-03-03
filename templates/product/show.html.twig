@@ -12,12 +12,36 @@
                 <td>{{ product.id }}</td>
             </tr>
             <tr>
-                <th>ProductName</th>
+                <th>Name</th>
                 <td>{{ product.productName }}</td>
             </tr>
             <tr>
-                <th>ProductPrice</th>
+                <th>Price</th>
                 <td>{{ product.productPrice }}</td>
+            </tr>
+            <tr>
+                <th>Tags</th>
+                <td>
+                <ul>
+                {% for tag in product.tags %}
+                    <li>{{ tag }}</li>
+                {% else %}
+                    <li>no tags assigned</li>
+                {% endfor %}
+                </ul>
+                </td>
+            </tr>
+            <tr>
+                <th>Available sizes</th>
+                <td>
+                <ul>
+                {% for option in product.options %}
+                    <li>{{ option }}</li>
+                {% else %}
+                    <li>no sizes available</li>
+                {% endfor %}
+                </ul>
+                </td>
             </tr>
         </tbody>
     </table>
