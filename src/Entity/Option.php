@@ -36,6 +36,11 @@ class Option
         $this->products = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->optionName;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

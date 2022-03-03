@@ -39,6 +39,11 @@ class Product
         $this->tags = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->productName;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
