@@ -50,7 +50,7 @@
 
     {% if is_granted('ROLE_PRODUCT_ADMIN') %}
         <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
-    {% endif %}
 
-    {{ include('product/_delete_form.html.twig') }}
+        {{ include('product/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}
