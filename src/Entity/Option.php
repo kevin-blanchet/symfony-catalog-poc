@@ -10,7 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OptionRepository::class)]
 #[ORM\Table(name: '`option`')]
-#[ApiResource]
+#[ApiResource(
+    collectionOperations: ['get']
+    , itemOperations: ['get']
+)]
 class Option
 {
     #[ORM\Id]
