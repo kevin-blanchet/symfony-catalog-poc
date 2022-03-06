@@ -11,7 +11,7 @@ class ProductSearchFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('field_name')
+            ->add('search_term')
         ;
     }
 
