@@ -45,6 +45,35 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
+     /**
+      * @return Product[] Returns an array of Product objects
+      */
+    public function findByName($value)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.productName like :val')
+            ->setParameter('val', '%'.$value.'%')
+            ->orderBy('p.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @return Product[] Returns an array of Product objects
+     */
+    public function findByTag($value)
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.tags', 't')
+            ->andWhere('t.tagName like :val')
+            ->setParameter('val', '%'.$value.'%')
+            ->orderBy('p.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */
