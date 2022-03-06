@@ -49,7 +49,15 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/search/{term}', name: 'app_product_by_name', methods: ['GET'])]
+    #[Route('/search', name: 'app_product_search_index', methods: ['GET'])]
+    public function searchIndex(ProductRepository $productRepository): Response
+    {
+        return $this->render('product/index.html.twig', [
+            'products' => $productRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/search/{term}', name: 'app_product_search', methods: ['GET'])]
     public function search(ProductRepository $productRepository, string $term): Response
     {
         $products = array_unique(array_merge($productRepository->findByName($term), $productRepository->findByTag($term)));
