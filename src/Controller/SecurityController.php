@@ -15,4 +15,10 @@ class SecurityController extends AbstractController
     {
         throw new \Exception('Logout not activated');
     }
+
+    #[Route('/', name: 'app_index')]
+    public function toProduct(): \Symfony\Component\HttpFoundation\RedirectResponse
+    {
+        return $this->redirectToRoute('app_product_index');
+    }
 }
