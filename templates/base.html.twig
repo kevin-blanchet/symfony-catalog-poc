@@ -16,6 +16,7 @@
     <body>
         <header>
             <a href="{{ path('app_product_index') }}">Products</a>
+            <a href="{{ path('app_product_search_index') }}">Search</a>
             <a href="/api">API Platform</a>
             {% if is_granted('ROLE_USER') %}
                 <a href="{{ path('app_logout') }}">Logout</a>
