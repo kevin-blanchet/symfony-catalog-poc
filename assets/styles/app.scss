@@ -1,6 +1,17 @@
 @import "~bootstrap/scss/bootstrap";
 
-tr[onclick]{
+html, body{
+    min-height: 100vh;
+}
+
+.admin-grid{
+    min-height: 50vh;
+    >div{
+        min-height: 100%;
+    }
+}
+
+[onclick]{
     cursor: pointer;
 }
 .show-product {

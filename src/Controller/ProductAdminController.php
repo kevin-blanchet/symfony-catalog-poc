@@ -11,12 +11,20 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/product')]
+#[Route('/admin')]
 #[IsGranted('ROLE_PRODUCT_ADMIN')]
 class ProductAdminController extends AbstractController
 {
-    #[Route('/', name: 'app_product_admin_index', methods: ['GET'])]
-    public function index(ProductRepository $productRepository): Response
+    #[Route('/', name: 'app_product_admin', methods: ['GET'])]
+    public function index(): Response
+    {
+        return $this->render('productAdmin/admin.html.twig', [
+            'title' => 'Admin view',
+        ]);
+    }
+
+    #[Route('/product', name: 'app_product_admin_index', methods: ['GET'])]
+    public function product(ProductRepository $productRepository): Response
     {
         return $this->render('productAdmin/index.html.twig', [
             'title' => 'All products',
@@ -24,7 +32,7 @@ class ProductAdminController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_product_admin_new', methods: ['GET', 'POST'])]
+    #[Route('/product/new', name: 'app_product_admin_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ProductRepository $productRepository): Response
     {
         $product = new Product();
@@ -43,7 +51,7 @@ class ProductAdminController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_product_admin_show', methods: ['GET'])]
+    #[Route('/product/{id}', name: 'app_product_admin_show', methods: ['GET'])]
     public function show(Product $product): Response
     {
         return $this->render('productAdmin/show.html.twig', [
@@ -52,7 +60,7 @@ class ProductAdminController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_product_admin_edit', methods: ['GET', 'POST'])]
+    #[Route('/product/{id}/edit', name: 'app_product_admin_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Product $product, ProductRepository $productRepository): Response
     {
         $form = $this->createForm(ProductType::class, $product);
@@ -70,7 +78,7 @@ class ProductAdminController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_product_admin_delete', methods: ['POST'])]
+    #[Route('/product/{id}', name: 'app_product_admin_delete', methods: ['POST'])]
     public function delete(Request $request, Product $product, ProductRepository $productRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
