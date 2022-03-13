@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Form\ProductFormType;
 use App\Repository\ProductRepository;
+use App\Repository\ProductTypeRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,6 +49,23 @@ class ProductAdminController extends AbstractController
             'title' => 'New product',
             'product' => $product,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/product/options-select', name: 'app_product_admin_options_select')]
+    public function getOptionsSelect(Request $request, ProductTypeRepository $productTypeRepository){
+        //dd($request);
+        $product = new Product();
+        $productType = $productTypeRepository->findOneBy(Array('productTypeName' => $request->query->get('productType')));
+        $product->setProductType($productType);
+        $form = $this->createForm(ProductFormType::class, $product);
+
+        if(!$form->has('options')){
+            return new Response(null, 204);
+        }
+
+        return $this->render('productAdmin/_options.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 
