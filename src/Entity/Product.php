@@ -36,6 +36,9 @@ class Product
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'products')]
     private $tags;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $product_image_path;
+
     public function __construct()
     {
         $this->options = new ArrayCollection();
@@ -132,6 +135,18 @@ class Product
     public function removeTag(Tag $tag): self
     {
         $this->tags->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getProductImagePath(): ?string
+    {
+        return $this->product_image_path;
+    }
+
+    public function setProductImagePath(?string $product_image_path): self
+    {
+        $this->product_image_path = $product_image_path;
 
         return $this;
     }
