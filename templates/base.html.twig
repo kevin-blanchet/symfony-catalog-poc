@@ -14,16 +14,33 @@
         {% endblock %}
     </head>
     <body>
-        <header>
-            <a href="{{ path('app_product_index') }}">Products</a>
-            <a href="{{ path('app_product_search_index') }}">Search</a>
-            <a href="/api">API Platform</a>
-            {% if is_granted('ROLE_USER') %}
-                <a href="{{ path('app_logout') }}">Logout</a>
-            {% else %}
-                <a href="{{ path('app_login') }}">Login</a>
-            {% endif %}
+        <header class="d-flex flex-column p-2">
+            <h1 class="mx-auto">No shoes, No shirt</h1>
+            <h3 class="mx-auto">But we'll still serve you</h3>
         </header>
-        {% block body %}{% endblock %}
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="mx-auto d-sm-flex d-block flex-sm-nowrap">
+                <div class="text-center">
+                    <ul class="navbar-nav center-block">
+                        <li class="nav-item"><a class="nav-link" href="{{ path('app_product_index') }}">Products</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ path('app_product_search_index') }}">Search</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/api">API Platform</a></li>
+                        <li class="nav-item">
+                            {% if is_granted('ROLE_USER') %}
+                                <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                            {% else %}
+                                <a class="nav-link" href="{{ path('app_login') }}">Login</a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container justify-content-md-center">
+            <div class="pb-2 mt-4 mb-2 border-bottom">
+                <h3>{{ title }}</h3>
+            </div>
+            {% block body %}{% endblock %}
+        </div>
     </body>
 </html>
