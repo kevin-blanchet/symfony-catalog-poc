@@ -13,7 +13,11 @@
             </thead>
             <tbody>
             {% for product in products %}
-                <tr onclick="window.location='{{ path('app_product_show', {'id': product.id}) }}'">
+                {% if is_granted('ROLE_PRODUCT_ADMIN') %}
+                    <tr onclick="window.location='{{ path('app_product_admin_show', {'id': product.id}) }}'">
+                {% else %}
+                    <tr onclick="window.location='{{ path('app_product_show', {'id': product.id}) }}'">
+                {% endif %}
                         <td>{{ product }}</td>
                         <td>{{ product.productPrice }}</td>
                         <td>{{ product.productType }}</td>

@@ -23,6 +23,9 @@
                 <div class="text-center">
                     <ul class="navbar-nav center-block">
                         <li class="nav-item"><a class="nav-link" href="{{ path('app_product_index') }}">Products</a></li>
+                        {% if is_granted('ROLE_PRODUCT_ADMIN') %}
+                            <li class="nav-item"><a class="nav-link" href="{{ path('app_product_admin_index') }}">Admin view</a></li>
+                        {% endif %}
                         <li class="nav-item"><a class="nav-link" href="{{ path('app_product_search_index') }}">Search</a></li>
                         <li class="nav-item"><a class="nav-link" href="/api">API Platform</a></li>
                         <li class="nav-item">
