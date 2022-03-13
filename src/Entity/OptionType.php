@@ -26,9 +26,13 @@ class OptionType
     #[ORM\OneToMany(mappedBy: 'optionType', targetEntity: Option::class)]
     private $options;
 
+    #[ORM\ManyToMany(targetEntity: ProductType::class, mappedBy: 'optionTypes')]
+    private $productTypes;
+
     public function __construct()
     {
         $this->options = new ArrayCollection();
+        $this->productTypes = new ArrayCollection();
     }
 
     public function __toString()
@@ -78,6 +82,33 @@ class OptionType
             if ($option->getOptionType() === $this) {
                 $option->setOptionType(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductType>
+     */
+    public function getProductTypes(): Collection
+    {
+        return $this->productTypes;
+    }
+
+    public function addProductType(ProductType $productType): self
+    {
+        if (!$this->productTypes->contains($productType)) {
+            $this->productTypes[] = $productType;
+            $productType->addOptionType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductType(ProductType $productType): self
+    {
+        if ($this->productTypes->removeElement($productType)) {
+            $productType->removeOptionType($this);
         }
 
         return $this;
