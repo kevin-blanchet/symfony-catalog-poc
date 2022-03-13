@@ -18,6 +18,7 @@ class ProductController extends AbstractController
     public function index(ProductRepository $productRepository): Response
     {
         return $this->render('product/index.html.twig', [
+            'title' => 'All products',
             'products' => $productRepository->findAll(),
         ]);
     }
@@ -29,11 +30,12 @@ class ProductController extends AbstractController
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $data = $form->getData();
-            return $this->redirectToRoute('app_product_search', Array('term' => $data['search_term']));
+            $searchTerm = $form->get('search_term')->getData();
+            return $this->redirectToRoute('app_product_search', Array('term' => $searchTerm));
         }
 
         return $this->render('product/search.html.twig', [
+            'title' => 'Search a product',
             'searchForm' => $form->createView()
         ]);
     }
@@ -43,6 +45,7 @@ class ProductController extends AbstractController
     {
         $products = $this->_search($productRepository, $term);
         return $this->render('product/index.html.twig', [
+            'title' => 'Searching for '.$term,
             'products' => $products,
         ]);
     }
@@ -56,6 +59,7 @@ class ProductController extends AbstractController
     public function show(Product $product): Response
     {
         return $this->render('product/show.html.twig', [
+            'title' => $product->getProductName(),
             'product' => $product,
         ]);
     }
