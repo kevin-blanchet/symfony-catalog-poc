@@ -8,6 +8,9 @@ use App\Repository\OptionRepository;
 use App\Repository\OptionTypeRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProductFormType extends AbstractType
@@ -40,6 +43,13 @@ class ProductFormType extends AbstractType
                 'choices' => $choices,
             ]);
         }
+        $builder->get('productType')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function(FormEvent $event){
+                $form = $event->getForm();
+                $this->setupOptionsField($form->getParent(), $form->getData());
+            }
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -58,5 +68,24 @@ class ProductFormType extends AbstractType
             $returnArray[$optionType->getOptionTypeName()] = $this->optionRepository->findBy(["optionType" => $optionType]);
         }
         return $returnArray;
+    }
+
+    private function setupOptionsField(FormInterface $formInterface, ?ProductType $productType)
+    {
+        if ($productType === null){
+            $formInterface->remove('options');
+            return;
+        }
+
+        $options = $this->getOptionChoices($productType);
+
+        if (empty($options)){
+            $formInterface->remove('options');
+            return;
+        }
+        $formInterface->add('options', null, [
+            'placeholder' => 'Size, colors, etc.',
+            'choices' => $options,
+        ]);
     }
 }
