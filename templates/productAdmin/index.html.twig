@@ -1,1 +1,5 @@
 {% extends 'product/index.html.twig' %}
+
+{% if is_granted('ROLE_PRODUCT_ADMIN') %}
+    <a href="{{ path('app_product_admin_new') }}">Create new</a>
+{% endif %}

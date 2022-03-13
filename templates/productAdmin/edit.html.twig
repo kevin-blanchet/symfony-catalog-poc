@@ -3,8 +3,6 @@
 {% block title %}Edit Product{% endblock %}
 
 {% block body %}
-    <h1>Edit Product</h1>
-
     {{ include('productAdmin/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('app_product_admin_index') }}">back to list</a>
