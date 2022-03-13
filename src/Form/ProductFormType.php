@@ -6,9 +6,7 @@ use App\Entity\Product;
 use App\Entity\ProductType;
 use App\Repository\OptionRepository;
 use App\Repository\OptionTypeRepository;
-use App\Repository\ProductTypeRepository;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,12 +14,10 @@ class ProductFormType extends AbstractType
 {
     private OptionRepository $optionRepository;
     private OptionTypeRepository $optionTypeRepository;
-    private ProductTypeRepository $productTypeRepository;
-    public function __construct(OptionRepository $optionRepository, OptionTypeRepository $optionTypeRepository, ProductTypeRepository $productTypeRepository)
+    public function __construct(OptionRepository $optionRepository, OptionTypeRepository $optionTypeRepository)
     {
         $this->optionRepository = $optionRepository;
         $this->optionTypeRepository = $optionTypeRepository;
-        $this->productTypeRepository = $productTypeRepository;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
