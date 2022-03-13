@@ -3,14 +3,18 @@
 tr[onclick]{
     cursor: pointer;
 }
+.show-product {
+    th {
+        width: 10em;
+    }
+    td > ul {
+        columns: 5em;
+        column-gap: 5em;
+        padding: 0;
+        margin: 0;
 
-td>ul{
-    columns: 5em;
-    column-gap: 5em;
-    padding: 0;
-    margin: 0;
-
-    li{
-        list-style: none;
+        li {
+            list-style: none;
+        }
     }
 }
