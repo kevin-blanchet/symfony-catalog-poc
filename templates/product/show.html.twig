@@ -5,7 +5,13 @@
 {% block body %}
     <div class="row show-product">
         <div class="col-5 d-flex">
-            <img class="my-auto img-fluid" src="{{ asset('images/default_shoe.jpg') }}">
+            <img class="my-auto img-fluid" src="{% if product.productType.productTypeName == "shoe"  %}
+                {{ asset('images/default_shoe.jpg') }}
+            {% elseif product.productType.productTypeName == "tshirt" %}
+                {{ asset('images/default_shirt.jpg') }}
+            {% else %}
+                {{ asset('images/default_placeholder.jpg') }}
+            {% endif %}">
         </div>
         <div class="col-7">
             <table class="table">
