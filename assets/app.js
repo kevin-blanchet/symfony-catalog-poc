@@ -13,3 +13,27 @@ import './bootstrap';
 
 // load jquery
 import $ from 'jquery';
+
+$(document).ready(function() {
+    const $productSelect = $('.js-product-form-productType');
+    const $optionsTarget = $('.js-options-target');
+    $productSelect.on('change', function(e) {
+        $.ajax({
+            url: $productSelect.data('options-url'),
+            data: {
+                productType: $productSelect.val()
+            },
+            success: function (html) {
+                if (!html) {
+                    $optionsTarget.find('select').remove();
+                    $optionsTarget.addClass('d-none');
+                    return;
+                }
+                // Replace the current field and show
+                $optionsTarget
+                    .html(html)
+                    .removeClass('d-none')
+            }
+        });
+    });
+});

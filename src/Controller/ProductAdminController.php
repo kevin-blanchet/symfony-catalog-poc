@@ -54,9 +54,8 @@ class ProductAdminController extends AbstractController
 
     #[Route('/product/options-select', name: 'app_product_admin_options_select')]
     public function getOptionsSelect(Request $request, ProductTypeRepository $productTypeRepository){
-        //dd($request);
         $product = new Product();
-        $productType = $productTypeRepository->findOneBy(Array('productTypeName' => $request->query->get('productType')));
+        $productType = $productTypeRepository->find($request->query->get('productType'));
         $product->setProductType($productType);
         $form = $this->createForm(ProductFormType::class, $product);
 
