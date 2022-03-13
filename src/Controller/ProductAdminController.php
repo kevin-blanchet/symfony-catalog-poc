@@ -24,7 +24,7 @@ class ProductAdminController extends AbstractController
     }
 
     #[Route('/product', name: 'app_product_admin_index', methods: ['GET'])]
-    public function product(ProductRepository $productRepository): Response
+    public function list(ProductRepository $productRepository): Response
     {
         return $this->render('productAdmin/index.html.twig', [
             'title' => 'All products',
