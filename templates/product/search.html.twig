@@ -3,11 +3,13 @@
 {% block title %}Product{% endblock %}
 
 {% block body %}
-    <h1>Search a product</h1>
-
     {{ form_start(searchForm) }}
-        {{ form_widget(searchForm) }}
+        <div class="d-flex">
+            {{ form_widget(searchForm.search_term, {
+                attr: {class: 'form-control form-control-lg'}
+            }) }}
 
-        <button type="submit">Search</button>
+            <button class="btn btn-dark" type="submit">Search</button>
+        </div>
     {{ form_end(searchForm) }}
 {% endblock %}
