@@ -45,6 +45,20 @@ class OptionTypeRepository extends ServiceEntityRepository
         }
     }
 
+     /**
+      * @return OptionType[] Returns an array of OptionType objects
+      */
+    public function findByProductTypeId($value)
+    {
+        return $this->createQueryBuilder('o')
+            ->leftJoin('o.productTypes', 'p')
+            ->andWhere('p.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return OptionType[] Returns an array of OptionType objects
     //  */
