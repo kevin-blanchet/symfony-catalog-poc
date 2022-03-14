@@ -1,0 +1,26 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for product in products %}
+        {% if is_granted('ROLE_PRODUCT_ADMIN') %}
+            <tr onclick="window.location='{{ path('app_product_admin_show', {'id': product.id}) }}'">
+        {% else %}
+            <tr onclick="window.location='{{ path('app_product_show', {'id': product.id}) }}'">
+        {% endif %}
+                <td>{{ product }}</td>
+                <td>{{ product.productPrice }}</td>
+                <td>{{ product.productType }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="4">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

@@ -3,13 +3,22 @@
 {% block title %}Product{% endblock %}
 
 {% block body %}
-    {{ form_start(searchForm) }}
+    {{ form_start(searchForm, {
+        'action': '#',
+        'attr': {
+            'class':"js-form-search"
+        }
+    }) }}
         <div class="d-flex">
             {{ form_widget(searchForm.search_term, {
-                attr: {class: 'form-control form-control-lg'}
+                attr: {
+                    'data-search-url': path('app_product_search_index'),
+                    class: 'form-control form-control-lg js-product-form-search'
+                }
             }) }}
 
             <button class="btn btn-dark" type="submit">Search</button>
         </div>
     {{ form_end(searchForm) }}
+    <div class="js-results-target"></div>
 {% endblock %}

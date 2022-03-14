@@ -36,4 +36,19 @@ $(document).ready(function() {
             }
         });
     });
+
+    $(".js-form-search button[type='submit']").click(function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        const $productSearch = $('.js-product-form-search');
+        const $resultsTarget = $('.js-results-target');
+        $.ajax({
+            url: $productSearch.data('search-url')+'/'+$productSearch.val(),
+            success: function (html) {
+                // Replace the current field and show
+                $resultsTarget
+                    .html(html)
+            }
+        });
+    });
 });

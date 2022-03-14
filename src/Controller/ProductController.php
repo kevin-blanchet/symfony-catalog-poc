@@ -41,11 +41,10 @@ class ProductController extends AbstractController
     }
 
     #[Route('/search/{term}', name: 'app_product_search', methods: ['GET'])]
-    public function search(ProductRepository $productRepository, string $term): Response
+    public function search(string $term, ProductRepository $productRepository): Response
     {
         $products = $this->_search($productRepository, $term);
-        return $this->render('product/index.html.twig', [
-            'title' => 'Searching for '.$term,
+        return $this->render('product/search_ajax.html.twig', [
             'products' => $products,
         ]);
     }
