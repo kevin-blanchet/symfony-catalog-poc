@@ -11,7 +11,7 @@ class ProductSearchFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('search_term')
+            ->add('search_term', null, array('attr' => array('placeholder' => 'Search a product'), 'mapped' => false))
         ;
     }
 

@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductSearchFormType;
-use App\Form\ProductType;
+use App\Form\ProductFormType;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +18,7 @@ class ProductController extends AbstractController
     public function index(ProductRepository $productRepository): Response
     {
         return $this->render('product/index.html.twig', [
+            'title' => 'All products',
             'products' => $productRepository->findAll(),
         ]);
     }
@@ -29,20 +30,21 @@ class ProductController extends AbstractController
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $data = $form->getData();
-            return $this->redirectToRoute('app_product_search', Array('term' => $data['search_term']));
+            $searchTerm = $form->get('search_term')->getData();
+            return $this->redirectToRoute('app_product_search', Array('term' => $searchTerm));
         }
 
         return $this->render('product/search.html.twig', [
+            'title' => 'Search a product',
             'searchForm' => $form->createView()
         ]);
     }
 
     #[Route('/search/{term}', name: 'app_product_search', methods: ['GET'])]
-    public function search(ProductRepository $productRepository, string $term): Response
+    public function search(string $term, ProductRepository $productRepository): Response
     {
         $products = $this->_search($productRepository, $term);
-        return $this->render('product/index.html.twig', [
+        return $this->render('product/search_ajax.html.twig', [
             'products' => $products,
         ]);
     }
@@ -56,6 +58,7 @@ class ProductController extends AbstractController
     public function show(Product $product): Response
     {
         return $this->render('product/show.html.twig', [
+            'title' => $product->getProductName(),
             'product' => $product,
         ]);
     }

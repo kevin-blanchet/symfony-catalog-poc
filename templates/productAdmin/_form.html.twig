@@ -1,1 +1,19 @@
-{% extends 'product/_form.html.twig' %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+{{ form_start(form) }}
+    {{ form_row(form.productName) }}
+    {{ form_row(form.productPrice) }}
+    {{ form_row(form.productType, {
+        attr: {
+            'data-options-url': path('app_product_admin_options_select'),
+            class: 'js-product-form-productType'
+        }
+    }) }}
+    {{ form_row(form.tags) }}
+    <div class="js-options-target">
+        {% if form.options is defined %}
+            {{ form_row(form.options) }}
+        {% endif %}
+    </div>
+    {{ form_widget(form) }}
+<button class="btn btn-dark">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
