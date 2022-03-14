@@ -9,15 +9,15 @@
 
     <form action="{{ path('app_login') }}" method="post">
         <label for="username">Email: </label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}"/>
+        <input class="form-control form-control-lg" type="text" id="username" name="_username" value="{{ last_username }}"/>
         <br/>
         <label for="password">Password: </label>
-        <input type="password" id="password" name="_password"/>
+        <input class="form-control form-control-lg" type="password" id="password" name="_password"/>
 
         {# protecting against csrf attacks #}
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-        <button type="submit">Login</button>
+        <button class="mt-2 btn btn-dark" type="submit">Login</button>
+        <a class="mt-2 btn btn-dark" href="{{ path('app_register') }}">Register</a>
     </form>
-    <a href="{{ path('app_register') }}">register</a>
 {% endblock %}
